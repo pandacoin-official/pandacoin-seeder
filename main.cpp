@@ -343,7 +343,13 @@ extern "C" void* ThreadStats(void*) {
   } while(1);
 }
 
-static const string mainnet_seeds[] = {"seeder.pandapool.info", "seeder.bamboohouse.info", "seeder.thepandacoin.net", ""};
+static const string mainnet_seeds[] = {
+  "seeder.pandapool.info",
+  "seeder.bamboohouse.info",
+  "seeder.thepandacoin.net",
+  "seeder.pandacoinpnd.org",
+  ""
+};
 static const string testnet_seeds[] = {""};
 static const string *seeds = mainnet_seeds;
 
