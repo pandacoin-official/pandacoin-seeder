@@ -76,17 +76,17 @@ public:
           host = optarg;
           break;
         }
-        
+
         case 'm': {
           mbox = optarg;
           break;
         }
-        
+
         case 'n': {
           ns = optarg;
           break;
         }
-        
+
         case 't': {
           int n = strtol(optarg, NULL, 10);
           if (n > 0 && n < 1000) nThreads = n;
@@ -104,7 +104,7 @@ public:
           if (p > 0 && p < 65536) nPort = p;
           break;
         }
-        
+
         case 'o': {
           tor = optarg;
           break;
@@ -244,7 +244,7 @@ extern "C" int GetIPList(void *data, addr_t* addr, int max, int ipv4, int ipv6) 
   while (i<max) {
     int j = i + (rand() % (size - i));
     do {
-        bool ok = (ipv4 && thread->cache[j].v == 4) || 
+        bool ok = (ipv4 && thread->cache[j].v == 4) ||
                   (ipv6 && thread->cache[j].v == 6);
         if (ok) break;
         j++;

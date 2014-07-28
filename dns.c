@@ -279,20 +279,20 @@ ssize_t static dnshandle(dns_opt_t *opt, const unsigned char *inbuf, size_t insi
   outbuf[10] = 0; outbuf[11] = 0;
   // set qr
   outbuf[2] |= 128;
-  
+
   int typ = (inpos[0] << 8) + inpos[1];
   int cls = (inpos[2] << 8) + inpos[3];
   inpos += 4;
-  
+
   unsigned char *outpos = outbuf+(inpos-inbuf);
   unsigned char *outend = outbuf + BUFLEN;
-  
+
   // printf("DNS: Request host='%s' type=%i class=%i\n", name, typ, cls);
-  
+
   // calculate size of authority section
-  
+
   int auth_size = 0;
-  
+
   if (!((typ == TYPE_NS || typ == QTYPE_ANY) && (cls == CLASS_IN || cls == QCLASS_ANY))) {
     // authority section will be necessary
     unsigned char *oldpos = outpos;
@@ -300,7 +300,7 @@ ssize_t static dnshandle(dns_opt_t *opt, const unsigned char *inbuf, size_t insi
     auth_size = oldpos - outpos;
 //    printf("Authority section will claim %i bytes\n", auth_size);
   }
-  
+
   // Answer section
 
   int have_ns = 0;
@@ -318,7 +318,7 @@ ssize_t static dnshandle(dns_opt_t *opt, const unsigned char *inbuf, size_t insi
 //    printf("wrote SOA record: %i\n", ret2);
     if (!ret2) { outbuf[7]++; }
   }
-  
+
   // A/AAAA records
   if ((typ == TYPE_A || typ == TYPE_AAAA || typ == QTYPE_ANY) && (cls == CLASS_IN || cls == QCLASS_ANY)) {
     addr_t addr[32];
@@ -338,7 +338,7 @@ ssize_t static dnshandle(dns_opt_t *opt, const unsigned char *inbuf, size_t insi
         break;
     }
   }
-  
+
   // Authority section
   if (!have_ns) {
     int ret2 = write_record_ns(&outpos, outend, "", offset, CLASS_IN, opt->nsttl, opt->ns);
@@ -347,10 +347,10 @@ ssize_t static dnshandle(dns_opt_t *opt, const unsigned char *inbuf, size_t insi
       outbuf[9]++;
     }
   }
-  
+
   // set AA
   outbuf[2] |= 4;
-  
+
   return outpos - outbuf;
 error:
   // set error
@@ -369,7 +369,7 @@ int dnsserver(dns_opt_t *opt) {
   struct sockaddr_in si_other;
   int senderSocket = -1;
   senderSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-  if (senderSocket == -1) 
+  if (senderSocket == -1)
     return -3;
 
   int replySocket;
@@ -394,7 +394,7 @@ int dnsserver(dns_opt_t *opt) {
     if (bind(listenSocket, (struct sockaddr*)&si_me, sizeof(si_me))==-1)
       return -2;
   }
-  
+
   unsigned char inbuf[BUFLEN], outbuf[BUFLEN];
   struct iovec iov[1] = {
     {
