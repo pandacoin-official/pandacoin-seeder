@@ -349,7 +349,6 @@ static const string mainnet_seeds[] = {
   "seeder.thepandacoin.net",
   "seeder.pandacoinpnd.org",
   "seeder.showed.us",
-  "seeder.altmin.es",
   ""
 };
 static const string testnet_seeds[] = {""};
